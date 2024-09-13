@@ -10,6 +10,7 @@ import ProductDetail from './productDetails/productsDetails.jsx';
 import Footer from './footer.jsx';
 import Login from './Login.jsx';
 import SignUp from './SignUp.jsx';
+import Card from './card.jsx';
 
 
 
@@ -52,7 +53,7 @@ function MainPageContent(){
             
             </Routes>
             <Routes>
-            <Route path="/Card" element={<ProductDetail />} />
+            <Route path="/card" element={<Card />} />
             
             </Routes>
 

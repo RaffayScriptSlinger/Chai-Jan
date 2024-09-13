@@ -4,6 +4,7 @@ import Card from "./card";
 import ProductDetail from "./productDetails/productsDetails";
 import AboutUs from "./about";
 import ContactUs from "./ContactUs";
+import logo from "../images/logo.png"
 
 
 function Home() {
@@ -41,7 +42,7 @@ function Home() {
           <img
             className="object-cover object-center rounded-lg"
             alt="Logo Here!"
-            src="../public/logo.png"
+            src={logo}
           />
         </div>
         
