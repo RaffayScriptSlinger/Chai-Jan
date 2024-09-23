@@ -1,81 +1,134 @@
-import { Link } from "react-router-dom";
-import Login from "./Login";
+// src/components/SignUp.js
+import { Button } from "antd";
+import Swal from "sweetalert2";
 
-function SignUp(){
-    return(
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            alt="Your Company"
-            src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-            className="mx-auto h-10 w-auto"
-          />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-            Sign in to your account
-          </h2>
-        </div>
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../utils/firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  autoComplete="email"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+function SignUp() {
+  const navigate = useNavigate();
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
-                <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
-                  </a>
-                </div>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  required
-                  autoComplete="current-password"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Sign in
-              </button>
-            </div>
-          </form>
+  // Function to handle user sign-up
+  const handleSignUpUser = async () => {
+    if (!email || !password) {
+      Swal.fire("Please Enter Both Email And Password!");
+      return;
+    }
 
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Back To
-            {/* <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              Login Page
-            </a> */}
-           <Link to={"/Login"} className="text-red-600 hover:text-red-800"> Login</Link>
+    setLoading(true);
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      console.log("User registered:", userCredential.user);
+      navigate("/");
+    } catch (err) {
+      console.error("Error during sign-up:", err.message);
+      alert(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="h-[85vh] w-full flex justify-center items-center">
+      <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
+        <div
+          className="hidden bg-cover lg:block lg:w-1/2"
+          style={{
+            backgroundImage:
+              'url("https://plus.unsplash.com/premium_photo-1673580742890-4af144293960?q=80&w=1528&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
+          }}
+        />
+        <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
+          <div className="flex justify-center mx-auto">
+            <img
+              className="w-auto h-7 sm:h-8"
+              src="https://merakiui.com/images/logo.svg"
+              alt="Logo"
+            />
+          </div>
+          <p className="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">
+            Register your account!
           </p>
+
+          {/* Email Input */}
+          <div className="mt-4">
+            <label
+              className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+              htmlFor="LoggingEmailAddress"
+            >
+              Email Address
+            </label>
+            <input
+              id="LoggingEmailAddress"
+              className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          {/* Password Input */}
+          <div className="mt-4">
+            <div className="flex justify-between">
+              <label
+                className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
+                htmlFor="loggingPassword"
+              >
+                Password
+              </label>
+             
+            </div>
+            <input
+              id="loggingPassword"
+              className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          {/* Sign Up Button */}
+          <div className="mt-6">
+            <button
+              onClick={handleSignUpUser}
+              disabled={loading}
+              className={`w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 ${
+                loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+            >
+              {loading ? "Signing Up..." : "Sign Up"}
+            </button>
+          </div>
+
+          {/* Sign In Link */}
+          <div className="flex items-center justify-between mt-4">
+            <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4" />
+            <Link
+              to="/login"
+              className="text-sm text-black uppercase dark:text-gray-400 hover:underline"
+            >
+              or Sign in
+            </Link>
+            <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4" />
+          </div>
         </div>
       </div>
-
-    );
+    </div>
+  );
 }
-export default SignUp
+
+export default SignUp;

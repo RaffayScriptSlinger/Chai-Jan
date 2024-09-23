@@ -1,6 +1,11 @@
+import { ThemeContext } from "../contexts/ThemeContext";
+import { useContext } from "react";
 function Footer(){
+
+  const {theme,setTheme} = useContext(ThemeContext);
     return(
-        <div>
+
+        <div  className={`${theme == "light" ? "bg-white text-black py-2 " : "bg-red-400 text-white py-2"}`}>
             <>
 
   <footer className="text-gray-600 body-font">

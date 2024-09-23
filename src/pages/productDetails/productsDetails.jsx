@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
+import { useContext } from 'react'
+import { ThemeContext } from '../../contexts/ThemeContext'
+import { Button } from 'antd'
+
 
 const ProductDetail = () => {
+    const {theme,setTheme} = useContext(ThemeContext)
     const { productId } = useParams()
     console.log("productId", productId)
     const [product, setProduct] = useState(null)
@@ -23,18 +28,18 @@ const ProductDetail = () => {
     </div>;
 
     return (
-        <div>
-            <section className="text-gray-600 body-font overflow-hidden">
+        <div className={`${theme == "light"? "bg-white text-black":"bg-black text-red-500"}`}>
+            <section className=" body-font overflow-hidden">
                 <div className="container px-5 py-24 mx-auto">
                     {loading ? ( <h1 className='text-center text-2xl'>Loading...</h1>) :
-                        <div className="lg:w-4/5 mx-auto flex flex-wrap ">
+                        <div className="lg:w-4/5 mx-auto flex flex-wrap shadow-lg shadow-red-600 border-red-600">
                             <img
                                 alt="ecommerce"
-                                className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
+                                className="lg:w-1/2 w-full lg:h-auto  h-64 object-cover object-center rounded "
                                 src={product.image}
                             />
                             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                                <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                                <h2 className="text-sm title-font  tracking-widest">
                                     {product.title}
                                 </h2>
                                 <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
@@ -159,6 +164,9 @@ const ProductDetail = () => {
                                             <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
                                         </svg>
                                     </button>
+                                    <Button>
+                                        Add To Cart
+                                    </Button>
                                 </div>
                             </div>
                         </div>

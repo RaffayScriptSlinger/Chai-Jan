@@ -15,15 +15,18 @@ import Card from './card.jsx';
 
 
 
+
 function MainPageContent(){
+  
 
 
     return(
       
-        <div>
-        <BrowserRouter>
+        <div  >
+        <BrowserRouter >
        
         <Header/>
+        
         <Routes>
               <Route path='/' element={<Home/>} />
             </Routes>

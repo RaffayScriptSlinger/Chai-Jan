@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  max-width: 100%;
+  margin: 0 ;
+  /* padding: 2rem; */
   text-align: center;
 }
 
@@ -39,4 +39,18 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* app.css */
+
+/* Light theme */
+.light-theme {
+  background-color: white;
+  color: black;
+}
+
+/* Dark theme */
+.dark-theme {
+  background-color: black;
+  color: white;
 }

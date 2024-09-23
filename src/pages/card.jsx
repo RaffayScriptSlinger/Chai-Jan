@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import CustomButton from '../components/button';
+import { useContext } from 'react';
+import { ThemeContext } from '../contexts/ThemeContext';
 
 const Card = () => {
+  const {theme,setTheme} = useContext(ThemeContext)
   const [productData, setProductData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,12 +33,12 @@ const Card = () => {
 
   return (
     <div>
-      <section className="text-gray-600 body-font">
-        <h1 className="text-center text-4xl">Our Products</h1>
+      <section className={`${theme == "light"? "bg-white text-black":"bg-black text-red-500"}`}>
+        <h1 className="text-center text-4xl">Our <span className='text-red-600 font-semibold'>Products</span></h1>
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap -m-4 gap-20 justify-center">
             {productData.map((product) => (
-              <div key={product.id} className="lg:w-1/4 md:w-1/2 p-4 w-full border-pink-400 border-2">
+              <div key={product.id} className="lg:w-1/4 md:w-1/2 p-4 w-full shadow-lg shadow-red-600 border-red-600 border-1">
                 <Link to={`/product/${product.id}`} className="block relative h-48 rounded overflow-hidden">
                   <img
                     alt={product.title}
@@ -44,19 +48,17 @@ const Card = () => {
                 </Link>
                 <div className="mt-4">
                   <div>
-                    <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
+                    <h3 className="text-xs tracking-widest title-font mb-1">
                       {product.category}
                     </h3>
-                    <h2 className="text-gray-900 title-font text-lg font-medium">
+                    <h2 className=" title-font text-lg font-medium">
                       {product.title}
                     </h2>
                     <p className="mt-1">${product.price}</p>
                   </div>
                   <div>
                     <Link to={`/product/${product.id}`}>
-                      <button className="bg-yellow-400 p-2 rounded-md">
-                        Add Cart
-                      </button>
+                      <CustomButton text = "More..." type = "dashed" />
                     </Link>
                   </div>
                 </div>
