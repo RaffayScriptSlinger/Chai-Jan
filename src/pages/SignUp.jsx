@@ -6,6 +6,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../utils/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import signUpimg from "../images/signUpimg.png"
+
 
 function SignUp() {
   const navigate = useNavigate();
@@ -26,13 +28,18 @@ function SignUp() {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
+
+        setEmail(""),
+        setPassword("")
+      
       );
       console.log("User registered:", userCredential.user);
       navigate("/");
     } catch (err) {
       console.error("Error during sign-up:", err.message);
-      alert(err.message);
+    
+      Swal.fire(err.message);
     } finally {
       setLoading(false);
     }
@@ -51,8 +58,8 @@ function SignUp() {
         <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
           <div className="flex justify-center mx-auto">
             <img
-              className="w-auto h-7 sm:h-8"
-              src="https://merakiui.com/images/logo.svg"
+              className="w-auto h-7 sm:h-8  lg:h-28"
+              src={signUpimg}
               alt="Logo"
             />
           </div>

@@ -12,6 +12,8 @@ import { ThemeContext } from "../contexts/ThemeContext";
 
 
 
+
+
 function Header() {
   const { theme, setTheme } = useContext(ThemeContext);
 
@@ -31,37 +33,35 @@ function Header() {
           </a>
           <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
 
-            <Link to={"aboutUs"} className="mr-5 text-black "> <MoreOutlined /></Link>
 
-            <Link to={"ContactUs"} className="mr-5 text-black "><ContactsOutlined/></Link>
-            <Link to={"Login"} className="mr-5"><LoginOutlined/></Link>
+            <Link to={"Login"} className="mr-5 text-2xl"><LoginOutlined/></Link>
            
-            <span className="mr-5">
-              <MoonOutlined
-                onClick={() => setTheme("dark")} // Switch to dark mode
-                fontSize={"1.8rem"}
-                className="hover:text-orange-600 cursor-pointer transition-all duration-150 ease-linear"
-              />
-            </span>
-
-            {/* Sun Icon for Light Mode */}
+            {theme === "light" ? (
+        <span className="mr-5  ">
+          <MoonOutlined
+            onClick={() => setTheme("dark")} 
+            fontSize={"1.8rem"}
+            className="text-2xl  hover:text-orange-600 cursor-pointer transition-all duration-150 ease-linear"
+          />
+        </span>
+      ) : (
+        <span className="mr-5 ">
+          <SunOutlined
+            onClick={() => setTheme("light")} 
+            fontSize={"1.8rem"}
+            className="text-2xl hover:text-orange-600 cursor-pointer transition-all duration-150 ease-linear "
+          />
+        </span>
+      )}
+           <Link  className="mr-5 text-2xl"><ShoppingCartOutlined/></Link>
            
-            <span className="mr-5">
-
-              <SunOutlined
-                onClick={() => setTheme("light")} // Switch to light mode
-                fontSize={"1.8rem"}
-                className="hover:text-orange-600 cursor-pointer transition-all duration-150 ease-linear"
-              />
-            </span>
-           <span className="mr-5"><ShoppingCartOutlined /></span>
            
 
 
 
           </nav>
           <button  >
-            <Link to={"Home"}><HomeOutlined /></Link>
+            <Link to={"/"} className="text-2xl"><HomeOutlined /></Link>
           </button>
         </div>
       </header>

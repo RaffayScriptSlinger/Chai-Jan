@@ -1,11 +1,12 @@
-import { Button } from "antd";
-
-function CustomButton(props) {
+import { Button  } from "antd";
+  
+const CustomButton = ({ text, type, onClick }) => {
     return (
-        <Button type={props.type || "default"} >
-            {props.text || "Button"}
-        </Button>
+      <Button onClick={onClick} className={`btn-${type}`}>
+        {text}
+      </Button>
     );
-}
-
-export default CustomButton;
+  };
+  
+  export default CustomButton;
+  

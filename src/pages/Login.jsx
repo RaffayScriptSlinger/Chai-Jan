@@ -1,5 +1,6 @@
-// src/components/Login.js
 import Swal from "sweetalert2";
+
+
 import { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { useState } from "react";
@@ -10,9 +11,10 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import loginimg from "../images/Login.png"
 
 function Login() {
-  const {theme,setTheme} =  useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -42,9 +44,10 @@ function Login() {
       await signInWithPopup(auth, provider);
       Swal.fire("Congrates You Are Logged In with Google");
 
-     
+
       navigate("/");
-    
+
+
     } catch (error) {
       console.error("Error during Google sign-in:", error.message);
       Swal.fire(alert.message);
@@ -66,8 +69,8 @@ function Login() {
         <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
           <div className="flex justify-center mx-auto">
             <img
-              className="w-auto h-7 sm:h-8"
-              src="https://merakiui.com/images/logo.svg"
+              className="w-auto h-7 sm:h-8 lg:h-20"
+              src={loginimg}
               alt="Logo"
             />
           </div>
@@ -79,9 +82,8 @@ function Login() {
           <button
             onClick={loginWithGoogle}
             disabled={loading}
-            className={`flex items-center mx-auto justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            className={`flex items-center mx-auto justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 ${loading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
           >
             <div className="px-4 py-2">
               {/* Google SVG Icon */}
@@ -169,11 +171,10 @@ function Login() {
             <button
               onClick={loginUser}
               disabled={loading}
-              className={`w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 ${
-                loading ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              className={`w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 ${loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
             >
-              {loading ? "Signing In..." : "Sign In" }
+              {loading ? "Signing In..." : "Sign In"}
             </button>
           </div>
 
@@ -184,10 +185,10 @@ function Login() {
               to="/signup"
               className="text-sm text-black uppercase dark:text-gray-400 hover:underline"
             >
-              
+
               or sign up
             </Link>
-            
+
             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4" />
           </div>
         </div>

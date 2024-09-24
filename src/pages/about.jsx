@@ -11,8 +11,8 @@ function AboutUs(){
   <div className ="container px-5 py-24 mx-auto" >
     
     <div className="xl:w-1/2 lg:w-3/4 w-full mx-auto text-center">
-    <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
-        About <span className="text-red-600 font-semibold">Us</span>
+    <h1 className="sm:text-3xl text-2xl  title-font mb-4 text-red-600 font-semibold">
+    About <span className="text-red-600 font-semibold">Us</span>
       </h1>
     
       
