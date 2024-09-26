@@ -5,16 +5,16 @@ import { ColorRing } from 'react-loader-spinner';
 
 const ProductDetail = () => {
   const { theme } = useContext(ThemeContext);
-  const { productId } = useParams();
+  const { productId } = useParams(); // productId now refers to the meal ID
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://dummyjson.com/products/${productId}`)
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${productId}`)
       .then((res) => res.json())
       .then((res) => {
         console.log(res); // Log the response to see the data structure
-        setProduct(res);
+        setProduct(res.meals[0]); // Access the meal object inside the response
         setLoading(false);
       })
       .catch((err) => {
@@ -51,15 +51,15 @@ const ProductDetail = () => {
             <img
               alt="ecommerce"
               className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-              src={product.images} // Make sure product.image exists and is a valid URL
+              src={product.strMealThumb} // Meal image from TheMealDB
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <h2 className="text-sm title-font tracking-widest">{product.title}</h2>
-              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.category}</h1>
-              <p className="leading-relaxed">{product.description}</p>
+              <h2 className="text-sm title-font tracking-widest">{product.strMeal}</h2>
+              <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.strCategory}</h1>
+              <p className="leading-relaxed">{product.strInstructions}</p>
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5"></div>
               <div className="flex">
-                <span className="title-font font-medium text-2xl text-gray-900">${product.price}</span>
+                <span className="title-font font-medium text-2xl text-gray-900">{product.strArea}</span>
                 <button className='ml-5 border'>Add to cart</button>
               </div>
             </div>

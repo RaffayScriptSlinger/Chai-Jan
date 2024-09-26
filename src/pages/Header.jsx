@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom"
 import { HomeOutlined, SunOutlined } from "@ant-design/icons"; 
-import { Button } from "antd"; 
 import { LoginOutlined } from "@ant-design/icons";
-import { ContactsOutlined } from "@ant-design/icons";
-import { MoreOutlined } from "@ant-design/icons";
 import { MoonOutlined } from "@ant-design/icons";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useContext } from "react";

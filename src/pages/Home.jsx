@@ -31,7 +31,7 @@ function Home() {
           <div className="flex w-full md:justify-start justify-center items-end">
             
           <button
-      className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+      className="inline-flex text-white bg-green-600 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded text-lg"
       onClick={() => navigate("/card")} 
     >
       Menu
@@ -39,7 +39,7 @@ function Home() {
   
 
 
-            <button className="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 ml-3 focus:outline-none hover:bg-indigo-600 rounded text-lg"
+            <button className="inline-flex text-white bg-green-600 border-0 py-2 px-6 ml-3 focus:outline-none hover:bg-red-600 rounded text-lg"
              onClick={() => navigate("/ContactUs")}>
               Contact us
             </button>

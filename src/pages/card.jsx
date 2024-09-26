@@ -14,12 +14,12 @@ const Card = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://dummyjson.com/products");
+        const response = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s="); // Fetch all meals
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
         const data = await response.json();
-        setProductData(data.products); // Ensure you're using the correct property for products
+        setProductData(data.meals); // Update with meals data
       } catch (error) {
         setError(error.message);
       } finally {
@@ -49,26 +49,25 @@ const Card = () => {
   return (
     <div>
       <section className={`${theme === "light" ? "bg-white text-black" : "bg-black text-red-500"}`}>
-        <h1 className="text-center text-4xl">Trending <span className='text-red-600 font-semibold'>Products</span></h1>
+        <h1 className="text-center text-4xl pt-3 ">Tasty  <span className='text-red-600 font-semibold'>Treats</span></h1>
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap -m-4 gap-20 justify-center">
             {(showAll ? productData : productData.slice(0, 3)).map((product) => (
-              <div key={product.id} className="lg:w-1/4 md:w-1/2 p-4 w-full shadow-lg shadow-red-600 border-red-600 border-1">
-                <Link to={`/product/${product.id}`} className="block relative h-48 rounded overflow-hidden">
+              <div key={product.idMeal} className="lg:w-1/4 md:w-1/2 p-4 w-full shadow-lg shadow-red-600 border-red-600 border-1">
+                <Link to={`/product/${product.idMeal}`} className="block relative h-48 rounded overflow-hidden">
                   <img
-                    alt={product.title}
+                    alt={product.strMeal}
                     className="object-cover object-center w-full h-full block"
-                    src={product.images} // Make sure product.image is correct
+                    src={product.strMealThumb} // Image from TheMealDB
                   />
                 </Link>
                 <div className="mt-4">
                   <div>
-                    <h3 className="text-xs tracking-widest title-font mb-1">{product.category}</h3>
-                    <h2 className="title-font text-lg font-medium">{product.title}</h2>
-                    <p className="mt-1">${product.price}</p>
+                    <h3 className="text-xs tracking-widest title-font mb-1">{product.strCategory}</h3>
+                    <h2 className="title-font text-lg font-medium">{product.strMeal}</h2>
                   </div>
                   <div>
-                    <Link to={`/product/${product.id}`}>
+                    <Link to={`/product/${product.idMeal}`}>
                       <CustomButton text="More..." type="dashed" />
                     </Link>
                   </div>
@@ -76,14 +75,15 @@ const Card = () => {
               </div>
             ))}
           </div>
-        </div>
-        <div className="text-center">
+          <div className="text-center mt-14 ">
           <CustomButton 
             text={showAll ? "View Less" : "View All"} 
             type="solid" 
             onClick={() => setShowAll(!showAll)} 
           />
         </div>
+        </div>
+        
       </section>
     </div>
   );

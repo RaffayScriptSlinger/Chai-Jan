@@ -52,6 +52,7 @@ function MainPageContent() {
         path='/card'
         element={isLoggedIn ? <Layout><Card /></Layout> : <Navigate to="/Login" />}
       />
+       
     </Routes>
   );
 }
