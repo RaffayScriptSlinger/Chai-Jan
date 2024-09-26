@@ -22,7 +22,7 @@ function Home() {
       <div className="container mx-auto flex px-1 py-16 md:flex-row flex-col items-center">
         <div className="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
           <h1 className="title-font sm:text-4xl text-4xl mb-4  text-gray-900 font-bold">
-            <span className="text-red-500">Taste</span> & Health
+            <span className="text-red-500">Taste & </span>  <span className={`${theme == "light" ? "text-black" : "text-white"}`}> Health</span>
           </h1>
           <p className="mb-8 leading-relaxed">
           Taste and Health is all about serving delicious and nutritious meals. From juicy burgers and cheesy pizzas to wholesome salads and smoothies, we’ve got something for everyone. Our menu blends the best of

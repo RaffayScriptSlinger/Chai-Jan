@@ -20,7 +20,7 @@ function Header() {
 
   return (
     <div>
-      <header className={`${theme == "light" ? "bg-white text-black py-2 " : "bg-red-400 text-white py-2"}`}>
+      <header className={`${theme == "light" ? "bg-white text-black py-2 " : "bg-red-500 text-white py-2"}`}>
         <div className="container mx-auto flex flex-wrap p-1 flex-col md:flex-row items-center abc">
           <a className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
             <img
@@ -29,12 +29,12 @@ function Header() {
               className="w-10 h-10 bg-indigo-500 rounded-full"
             />
 
-            <span className="ml-3 text-xl"><span className="text-red-500">Taste</span> & Health</span>
+            <span className="ml-3 text-xl"><span className={`${theme == "light" ? "text-red-700" : "text-white"}`}>Taste</span> & Health</span>
           </a>
           <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
 
 
-            <Link to={"Login"} className="mr-5 text-2xl"><LoginOutlined/></Link>
+            
            
             {theme === "light" ? (
         <span className="mr-5  ">
@@ -56,7 +56,7 @@ function Header() {
            <Link  className="mr-5 text-2xl"><ShoppingCartOutlined/></Link>
            
            
-
+           <Link to="/logout" className="text-2xl mr-5"><LoginOutlined/></Link>
 
 
           </nav>

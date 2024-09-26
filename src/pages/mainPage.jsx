@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import AboutUs from './about.jsx';
 import ContactUs from './ContactUs.jsx';
 import Home from './Home.jsx';
@@ -8,25 +8,51 @@ import Login from './Login.jsx';
 import SignUp from './SignUp.jsx';
 import Card from './card.jsx';
 import Layout from '../components/layout.jsx';
+import LogOut from '../components/LogOut.jsx';
+import FAQs from '../components/FAQs.jsx';
 
 function MainPageContent() {
-  return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          {/* Public Routes */}
-          <Route path='/Login' element={<Login />} />
-          <Route path='/SignUp' element={<SignUp />} />
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
+  const navigate = useNavigate();
 
-          {/* Private Routes */}
-          <Route path='/' element={<Layout><Home /></Layout>} />
-          <Route path='/aboutUs' element={<Layout><AboutUs /></Layout>} />
-          <Route path='/ContactUs' element={<Layout><ContactUs /></Layout>} />
-          <Route path='/product/:productId' element={<Layout><ProductDetail /></Layout>} />
-          <Route path='/card' element={<Layout><Card /></Layout>} />
-        </Routes>
-      </BrowserRouter>
-    </div>
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    setIsLoggedIn(!!token); // Update login status based on token existence
+  }, []);
+
+  return (
+    <Routes>
+      {/* Public Routes */}
+      <Route path='/Login' element={<Login />} />
+      <Route path='/SignUp' element={<SignUp />} />
+      <Route path='/logout' element={<LogOut />} />
+    
+
+      {/* Private Routes */}
+      <Route
+        path='/'
+        element={isLoggedIn ? <Layout><Home /></Layout> : <Navigate to="/Login" />}
+      />
+        <Route path='/FAQs' element={<FAQs />} />
+      
+
+      <Route
+        path='/aboutUs'
+        element={isLoggedIn ? <Layout><AboutUs /></Layout> : <Navigate to="/Login" />}
+      />
+      <Route
+        path='/ContactUs'
+        element={isLoggedIn ? <Layout><ContactUs /></Layout> : <Navigate to="/Login" />}
+      />
+      <Route
+        path='/product/:productId'
+        element={isLoggedIn ? <Layout><ProductDetail /></Layout> : <Navigate to="/Login" />}
+      />
+      <Route
+        path='/card'
+        element={isLoggedIn ? <Layout><Card /></Layout> : <Navigate to="/Login" />}
+      />
+    </Routes>
   );
 }
 

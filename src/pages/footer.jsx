@@ -5,7 +5,7 @@ function Footer(){
   const {theme,setTheme} = useContext(ThemeContext);
     return(
 
-        <div  className={`${theme == "light" ? "bg-white text-black py-2 " : "bg-red-400 text-white py-2"}`}>
+        <div  className={`${theme == "light" ? "bg-white text-black py-2 " : "bg-red-500 text-white py-2"}`}>
             <>
 
   <footer className="text-gray-600 body-font">

@@ -16,14 +16,14 @@ function AboutUs(){
       </h1>
     
       
-      <p className="leading-relaxed text-lg">
+      <p  className={`${theme == "light" ? " text-black leading-relaxed text-lg " : " text-white leading-relaxed text-lg" }`}>
   Taste and Health Restaurant, situated in Malir's Gohar Green City, offers a unique dining experience focused on both flavor and wellness. Whether you're seeking a nutritious meal or just a delightful dining experience, our restaurant provides a warm and welcoming atmosphere. We specialize in healthy dishes crafted with fresh ingredients to cater to your dietary needs. Visit us to enjoy a variety of wholesome meals and discover a menu that balances taste and health. For more details, visit our shop at shop number 25 or contact us for additional information.
 </p>
 
 
       <span className="inline-block h-1 w-10 rounded bg-indigo-500 mt-8 mb-6" />
       <h2 className="text-gray-900 font-medium title-font tracking-wider text-sm">
-      <span className="text-red-500">Taste</span> & Health
+      <span className="text-red-500">Taste</span> <span className={`${theme == "light" ? "text-black":"text-white"}`}> & Health</span> 
       </h2>
       <p className="text-gray-500">Gohar Green City Shop 25</p>
     </div>

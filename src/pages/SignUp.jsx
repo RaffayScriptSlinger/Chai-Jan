@@ -1,49 +1,47 @@
-// src/components/SignUp.js
-import { Button } from "antd";
+// SignUp Component
 import Swal from "sweetalert2";
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../utils/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import signUpimg from "../images/signUpimg.png"
-
+import signUpimg from "../images/signUpimg.png";
 
 function SignUp() {
   const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Function to handle user sign-up
   const handleSignUpUser = async () => {
     if (!email || !password) {
-      Swal.fire("Please Enter Both Email And Password!");
+      Swal.fire("Please enter both email and password!");
       return;
     }
 
     setLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password,
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
 
-        setEmail(""),
-        setPassword("")
-      
-      );
-      console.log("User registered:", userCredential.user);
-      navigate("/");
+      // Automatically log in the user after sign up
+      localStorage.setItem("authToken", user.accessToken); // Save the token
+      localStorage.setItem("userId", user.uid); // Save user ID
+
+      Swal.fire("Account created successfully!");
+      navigate("/"); // Redirect to home after sign-up
+      window.location.reload(); // Force component re-render to update login state
     } catch (err) {
-      console.error("Error during sign-up:", err.message);
-    
       Swal.fire(err.message);
     } finally {
       setLoading(false);
     }
   };
+
+  
+
+
+
+
 
   return (
     <div className="h-[85vh] w-full flex justify-center items-center">
@@ -57,11 +55,7 @@ function SignUp() {
         />
         <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
           <div className="flex justify-center mx-auto">
-            <img
-              className="w-auto h-7 sm:h-8  lg:h-28"
-              src={signUpimg}
-              alt="Logo"
-            />
+            <img className="w-auto h-7 sm:h-8 lg:h-28" src={signUpimg} alt="Logo" />
           </div>
           <p className="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">
             Register your account!
@@ -69,10 +63,7 @@ function SignUp() {
 
           {/* Email Input */}
           <div className="mt-4">
-            <label
-              className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-              htmlFor="LoggingEmailAddress"
-            >
+            <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="LoggingEmailAddress">
               Email Address
             </label>
             <input
@@ -88,15 +79,9 @@ function SignUp() {
 
           {/* Password Input */}
           <div className="mt-4">
-            <div className="flex justify-between">
-              <label
-                className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-                htmlFor="loggingPassword"
-              >
-                Password
-              </label>
-             
-            </div>
+            <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">
+              Password
+            </label>
             <input
               id="loggingPassword"
               className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"

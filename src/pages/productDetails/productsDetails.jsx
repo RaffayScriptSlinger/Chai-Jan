@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router';
 import { ThemeContext } from '../../contexts/ThemeContext';
-import { CartContext } from '../../contexts/AddToCartContext'; // Correct import from CartContext
-import { Button } from 'antd';
 import { ColorRing } from 'react-loader-spinner';
 
 const ProductDetail = () => {
@@ -12,9 +10,10 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/${productId}`)
+    fetch(`https://dummyjson.com/products/${productId}`)
       .then((res) => res.json())
       .then((res) => {
+        console.log(res); // Log the response to see the data structure
         setProduct(res);
         setLoading(false);
       })
@@ -25,30 +24,23 @@ const ProductDetail = () => {
   }, [productId]);
 
   if (loading) {
-
-    return( 
-        <div className="flex justify-center items-center h-screen">
+    return (
+      <div className="flex justify-center items-center h-screen">
         <ColorRing
-        visible={true}
-        height="80"
-        width="80"
-        ariaLabel="color-ring-loading"
-        wrapperStyle={{}}
-        wrapperClass="color-ring-wrapper"
-        colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-
+          visible={true}
+          height="80"
+          width="80"
+          ariaLabel="color-ring-loading"
+          wrapperStyle={{}}
+          wrapperClass="color-ring-wrapper"
+          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
         />
-        </div>)
-  
-  
+      </div>
+    );
   }
 
   if (!product) {
-    return (
-      <div>
-        <h1>Product not found</h1>
-      </div>
-    );
+    return <div><h1>Product not found</h1></div>;
   }
 
   return (
@@ -59,7 +51,7 @@ const ProductDetail = () => {
             <img
               alt="ecommerce"
               className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-              src={product.image}
+              src={product.images} // Make sure product.image exists and is a valid URL
             />
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <h2 className="text-sm title-font tracking-widest">{product.title}</h2>
@@ -68,9 +60,7 @@ const ProductDetail = () => {
               <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5"></div>
               <div className="flex">
                 <span className="title-font font-medium text-2xl text-gray-900">${product.price}</span>
-                <button>
-                    add to cart
-                </button>
+                <button className='ml-5 border'>Add to cart</button>
               </div>
             </div>
           </div>
