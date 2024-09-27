@@ -1,6 +1,6 @@
-import Header from "../pages/Header";
+import Header from "./Header";
 import React from "react";
-import Footer from "../pages/footer";
+import Footer from "./footer";
 
 
 

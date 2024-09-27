@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes, Navigate, useNavigate } from "react-router-dom";
-import AboutUs from './about.jsx';
-import ContactUs from './ContactUs.jsx';
-import Home from './Home.jsx';
+import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import AboutUs from '../components/about.jsx';
+import ContactUs from '../components/ContactUs.jsx';
+import Home from '../components/Home.jsx';
 import ProductDetail from './productDetails/productsDetails.jsx';
-import Login from './Login.jsx';
-import SignUp from './SignUp.jsx';
+import Login from './auth/Login.jsx';
+import SignUp from './auth/SignUp.jsx';
 import Card from './card.jsx';
 import Layout from '../components/layout.jsx';
 import LogOut from '../components/LogOut.jsx';
 import FAQs from '../components/FAQs.jsx';
+import Cart from '../components/cart.jsx';
 
 function MainPageContent() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
@@ -26,16 +27,12 @@ function MainPageContent() {
       <Route path='/Login' element={<Login />} />
       <Route path='/SignUp' element={<SignUp />} />
       <Route path='/logout' element={<LogOut />} />
-    
-
-      {/* Private Routes */}
-      <Route
-        path='/'
-        element={isLoggedIn ? <Layout><Home /></Layout> : <Navigate to="/Login" />}
-      />
-        <Route path='/FAQs' element={<FAQs />} />
+     
       
-
+      {/* Allow access to Home without login */}
+      <Route path='/' element={<Layout><Home /></Layout>} />
+      
+      {/* Private Routes - Require login for these pages */}
       <Route
         path='/aboutUs'
         element={isLoggedIn ? <Layout><AboutUs /></Layout> : <Navigate to="/Login" />}
@@ -52,7 +49,8 @@ function MainPageContent() {
         path='/card'
         element={isLoggedIn ? <Layout><Card /></Layout> : <Navigate to="/Login" />}
       />
-       
+      <Route path='/Cart' element={<Layout><Cart /></Layout> } />
+      <Route path='/FAQs' element={ <Layout><FAQs /></Layout>} />
     </Routes>
   );
 }

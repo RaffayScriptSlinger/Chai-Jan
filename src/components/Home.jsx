@@ -1,8 +1,7 @@
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import Card from "./card";
-import AboutUs from "./about";
-import ContactUs from "./ContactUs";
+import Card from "../pages/card";
+import AboutUs from "../components/about";
+import ContactUs from "../components/ContactUs";
 import logo from "../images/pizza.jpg"
 import { useContext } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";

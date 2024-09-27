@@ -1,52 +1,60 @@
-
 import { useContext, useState } from "react";
 import { ThemeContext } from "../contexts/ThemeContext";
 import { Link } from "react-router-dom";
 import { getFirestore, collection, addDoc } from "firebase/firestore"; 
 import Swal from "sweetalert2";
+import React from 'react';
+import { Button, notification } from 'antd';
 
 function ContactUs() {
   const { theme } = useContext(ThemeContext);
-  
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  
+
+  const [api, contextHolder] = notification.useNotification(); 
+
+  const openNotification = () => {
+    api.open({
+      message: 'Thank you!',
+      description: 'Your response has been recorded successfully.',
+      duration: 3, 
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const db = getFirestore(); 
     const contactsCollection = collection(db, "contacts"); 
 
     try {
-      if(!name  || !email || !message) {
-      Swal.fire("Please Fill  in all fields", "", "error");
-      }
-      else{
+      if (!name || !email || !message) {
+        Swal.fire("Please fill in all fields", "", "error");
+      } else {
         await addDoc(contactsCollection, {
           name: name,
           email: email,
           message: message,
         });
-        console.log("Document added successfully!");
-        Swal.fire("Document added successfully!");
         
-        
+        openNotification(); 
+
         setName("");
         setEmail("");
         setMessage("");
-
       }
 
-     
     } catch (error) {
       console.error("Error adding document: ", error);
-      Swal.fire(`Error adding document: ", ${error}`)
+      Swal.fire(`Error adding document: ${error}`);
     }
   };
 
   return (
     <div className={`${theme === "light" ? "bg-white text-black" : "bg-black text-white"}`}>
+      {contextHolder} 
       <section className="text-gray-600 body-font relative">
         <div className="container px-5 py-12 mx-auto">
           <div className="flex flex-col text-center w-full mb-12">
@@ -104,12 +112,12 @@ function ContactUs() {
                 </div>
               </div>
               <div className="p-2 w-full">
-                <button type="submit" className="rounded p-2 bg-green-500 text-white hover:bg-green-600" onClick={()=>{Swal.fire("Your Response Is Recorded")}}>
+                <button type="submit" className="rounded p-2 bg-green-500 text-white hover:bg-green-600">
                   Send Message
                 </button>
                 <br />
                 <Link to="/FAQs" className="text-red-600">FAQs</Link>
-                <p className="text-red-600">Note:Your response is recorded</p>
+                <p className="text-red-600">Note: Your response is recorded</p>
               </div>
             </form>
             <div className="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
@@ -118,8 +126,6 @@ function ContactUs() {
                 Malir St.
                 <br />
                 Near Malir Court
-              
-                
               </p>
             </div>
           </div>

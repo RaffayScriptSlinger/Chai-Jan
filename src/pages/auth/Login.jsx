@@ -1,11 +1,11 @@
-// Login Component
+
 import Swal from "sweetalert2";
 import { useContext, useState } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../utils/firebase";
-import loginimg from "../images/Login.png";
+import { auth } from "../../utils/firebase";
+import loginimg from "../../images/Login.png"
 
 function Login() {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -14,20 +14,18 @@ function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Function to handle email/password login
   const loginUser = async () => {
     setLoading(true);
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Store user data in localStorage
-      localStorage.setItem("authToken", user.accessToken); // Save the token
-      localStorage.setItem("userId", user.uid); // Save user ID
+      localStorage.setItem("authToken", user.accessToken); 
+      localStorage.setItem("userId", user.uid); 
 
       Swal.fire("Congrats! You are logged in.");
-      navigate("/"); // Redirect to home after successful login
-      window.location.reload(); // Force component re-render to update login state
+      navigate("/"); 
+      window.location.reload(); 
     } catch (err) {
       Swal.fire("Error", "Invalid email or password", "error");
     } finally {
@@ -35,7 +33,7 @@ function Login() {
     }
   };
 
-  // Function to handle Google login
+
   const loginWithGoogle = async () => {
     setLoading(true);
     const provider = new GoogleAuthProvider();
@@ -44,13 +42,12 @@ function Login() {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Store user data in localStorage
-      localStorage.setItem("authToken", user.accessToken); // Save the token
-      localStorage.setItem("userId", user.uid); // Save user ID
+      localStorage.setItem("authToken", user.accessToken); 
+      localStorage.setItem("userId", user.uid); 
 
       Swal.fire("Congrats! You are logged in with Google.");
       navigate("/");
-      window.location.reload(); // Force component re-render to update login state
+      window.location.reload(); 
     } catch (error) {
       Swal.fire("Error", error.message, "error");
     } finally {
@@ -79,7 +76,7 @@ function Login() {
             Welcome back!
           </p>
 
-          {/* Google Sign-In Button */}
+          
           <button
             onClick={loginWithGoogle}
             disabled={loading}
@@ -90,7 +87,7 @@ function Login() {
             <span className="w-5/6 px-4 py-3 font-bold text-center">Sign in with Google</span>
           </button>
 
-          {/* Divider */}
+    
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4" />
             <span className="text-xs text-center text-gray-500 uppercase dark:text-gray-400">
@@ -99,7 +96,7 @@ function Login() {
             <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4" />
           </div>
 
-          {/* Email Input */}
+          
           <div className="mt-4">
             <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="LoggingEmailAddress">
               Email Address
@@ -115,7 +112,7 @@ function Login() {
             />
           </div>
 
-          {/* Password Input */}
+        
           <div className="mt-4">
             <div className="flex justify-between">
               <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">
@@ -136,7 +133,7 @@ function Login() {
             />
           </div>
 
-          {/* Sign In Button */}
+       
           <div className="mt-6">
             <button
               onClick={loginUser}
@@ -148,7 +145,7 @@ function Login() {
             </button>
           </div>
 
-          {/* Sign Up Link */}
+  
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4" />
             <Link to="/SignUp" className="text-sm text-black uppercase dark:text-gray-400 hover:underline">

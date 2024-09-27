@@ -5,15 +5,15 @@ function LogOut() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Clear the token from localStorage
+    
     localStorage.removeItem('authToken');
     localStorage.removeItem('userId');
 
-    // Redirect to login or signup page
-    navigate('/SignUp'); // You can redirect to '/Login' or '/SignUp'
+  
+    navigate('/SignUp'); 
   }, [navigate]);
 
-  return null; // No need to render anything
+  return null; 
 }
 
 export default LogOut;

@@ -1,10 +1,9 @@
-// SignUp Component
 import Swal from "sweetalert2";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../utils/firebase";
+import { auth } from "../../utils/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import signUpimg from "../images/signUpimg.png";
+import signUpimg from "../../images/signUpimg.png";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -23,13 +22,12 @@ function SignUp() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      // Automatically log in the user after sign up
-      localStorage.setItem("authToken", user.accessToken); // Save the token
-      localStorage.setItem("userId", user.uid); // Save user ID
+      localStorage.setItem("authToken", user.accessToken); 
+      localStorage.setItem("userId", user.uid); 
 
       Swal.fire("Account created successfully!");
-      navigate("/"); // Redirect to home after sign-up
-      window.location.reload(); // Force component re-render to update login state
+      navigate("/"); 
+      window.location.reload(); 
     } catch (err) {
       Swal.fire(err.message);
     } finally {
@@ -61,7 +59,7 @@ function SignUp() {
             Register your account!
           </p>
 
-          {/* Email Input */}
+          
           <div className="mt-4">
             <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="LoggingEmailAddress">
               Email Address
@@ -77,7 +75,7 @@ function SignUp() {
             />
           </div>
 
-          {/* Password Input */}
+        
           <div className="mt-4">
             <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">
               Password
@@ -93,7 +91,7 @@ function SignUp() {
             />
           </div>
 
-          {/* Sign Up Button */}
+          
           <div className="mt-6">
             <button
               onClick={handleSignUpUser}
@@ -106,7 +104,7 @@ function SignUp() {
             </button>
           </div>
 
-          {/* Sign In Link */}
+       
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4" />
             <Link

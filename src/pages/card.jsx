@@ -14,12 +14,12 @@ const Card = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s="); // Fetch all meals
+        const response = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s="); 
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
         const data = await response.json();
-        setProductData(data.meals); // Update with meals data
+        setProductData(data.meals); 
       } catch (error) {
         setError(error.message);
       } finally {
@@ -58,7 +58,7 @@ const Card = () => {
                   <img
                     alt={product.strMeal}
                     className="object-cover object-center w-full h-full block"
-                    src={product.strMealThumb} // Image from TheMealDB
+                    src={product.strMealThumb} 
                   />
                 </Link>
                 <div className="mt-4">

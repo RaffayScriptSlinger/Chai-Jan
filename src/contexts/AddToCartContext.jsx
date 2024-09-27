@@ -1,59 +1,45 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState } from 'react';
 
 export const CartContext = createContext();
 
-function CartContextProvider({ children }) {
+export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  function addItemToCart(item) {
-    setCartItems(prevItems => {
-      const itemIndex = prevItems.findIndex(data => data.id === item.id);
-      if (itemIndex === -1) {
-        return [...prevItems, { ...item, quantity: 1 }];
-      } else {
-        const newItems = [...prevItems];
-        newItems[itemIndex].quantity++;
-        return newItems;
+  const addToCart = (product) => {
+    setCartItems((prevItems) => {
+      const itemExists = prevItems.find((item) => item.id === product.id);
+      if (itemExists) {
+        return prevItems.map((item) =>
+          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+        );
       }
+      return [...prevItems, { ...product, quantity: 1 }];
     });
-  }
+  };
 
-  function removeItemFromCart(id) {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
-  }
+  const increaseQuantity = (id) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
 
-  function isItemAdded(id) {
-    return cartItems.find(item => item.id === id) || null;
-  }
+  const decreaseQuantity = (id) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item
+      )
+    );
+  };
 
-  function lessQuantityFromCart(id) {
-    setCartItems(prevItems => {
-      const itemIndex = prevItems.findIndex(data => data.id === id);
-      if (itemIndex === -1) return prevItems;
-
-      const newItems = [...prevItems];
-      if (newItems[itemIndex].quantity > 1) {
-        newItems[itemIndex].quantity--;
-      } else {
-        newItems.splice(itemIndex, 1); // Remove the item if quantity is 1
-      }
-      return newItems;
-    });
-  }
+  const removeFromCart = (id) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
 
   return (
-    <CartContext.Provider
-      value={{
-        cartItems,
-        addItemToCart,
-        removeItemFromCart,
-        isItemAdded,
-        lessQuantityFromCart,
-      }}
-    >
+    <CartContext.Provider value={{ cartItems, addToCart, increaseQuantity, decreaseQuantity, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );
-}
-
-export default CartContextProvider;
+};
