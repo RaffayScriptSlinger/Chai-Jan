@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../contexts/AddToCartContext';
 import { ThemeContext } from '../contexts/ThemeContext';
+import CustomButton from './button';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const { cartItems, increaseQuantity, decreaseQuantity, removeFromCart } = useContext(CartContext);
@@ -11,7 +13,11 @@ const Cart = () => {
   if (cartItems.length === 0) {
     return (
       <div className="text-center py-10">
-        <h2 className="text-2xl font-semibold">Your cart is empty!</h2>
+        <h2 className="text-2xl font-semibold mb-3">Your cart is empty!</h2> 
+        <CustomButton text = {  <Link to={`/Card`}>Start Shopping</Link>} className = "bg-red-600"
+      
+        />
+      
       </div>
     );
   }

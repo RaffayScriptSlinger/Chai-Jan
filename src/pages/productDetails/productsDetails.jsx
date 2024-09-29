@@ -5,6 +5,7 @@ import { CartContext } from '../../contexts/AddToCartContext';
 import { ColorRing } from 'react-loader-spinner';
 import Swal from 'sweetalert2';
 
+
 const ProductDetail = () => {
   const { theme } = useContext(ThemeContext);
   const { addToCart } = useContext(CartContext);
@@ -30,7 +31,7 @@ const ProductDetail = () => {
       const productToAdd = {
         id: product.idMeal,
         name: product.strMeal,
-        price: 10,
+        price: randomPrice * 1,
         image: product.strMealThumb, 
         area: product.strArea, 
       };
@@ -40,6 +41,7 @@ const ProductDetail = () => {
        )
     }
   };
+  const randomPrice = Math.random().toFixed(2)*100;
 
   if (loading) {
     return (

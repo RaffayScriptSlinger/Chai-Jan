@@ -5,7 +5,7 @@ function Footer(){
   const {theme,setTheme} = useContext(ThemeContext);
     return(
 
-        <div  className={`${theme == "light" ? "bg-white text-black py-2 " : "bg-red-500 text-white py-2"}`}>
+        <div  className={`${theme == "light" ? "bg-white text-black py-2 " : "bg-red-600 text-white py-2"}`}>
             <>
 
   <footer className="text-gray-600 body-font">
@@ -17,7 +17,7 @@ function Footer(){
   className="w-10 h-10 bg-indigo-500 rounded-full"
 />
 
-        <span className="ml-3 text-xl"> <span className="text-red-800">Taste</span> & Health</span>
+        <span className="ml-3 text-xl"> <span className="text-black">Taste</span> & Health</span>
       </a>
       <p className="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">
         

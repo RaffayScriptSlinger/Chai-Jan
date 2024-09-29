@@ -97,7 +97,7 @@ function AboutUs() {
               </div>
             </div>
       
-       <Link to="/card" className="text-red-600">  <button className="flex mx-auto mt-16 text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">
+       <Link to="/card" className="text-red-600">  <button className="flex mx-auto mt-16 text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">
                 Order Now
               </button></Link>
             

@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../utils/firebase";
 import loginimg from "../../images/Login.png"
+import { HomeOutlined } from "@ant-design/icons";
 
 function Login() {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -59,7 +60,7 @@ function Login() {
 
 
   return (
-    <div className="h-[85vh] w-full flex justify-center items-center">
+    <div className="h-[85vh] w-full flex justify-center items-center lg:mt-12 md:mt-8 sm:mt-3 ">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
         <div
           className="hidden bg-cover lg:block lg:w-1/2"
@@ -149,7 +150,13 @@ function Login() {
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4" />
             <Link to="/SignUp" className="text-sm text-black uppercase dark:text-gray-400 hover:underline">
-              or sign up
+              or sign up 
+            </Link>
+            <Link
+              to="/"
+              className="text-sm text-black uppercase align-middle dark:text-gray-400 hover:underline  "
+            >
+            Back To <HomeOutlined />
             </Link>
 
             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4" />

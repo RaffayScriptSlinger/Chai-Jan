@@ -53,7 +53,7 @@ const Card = () => {
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap -m-4 gap-20 justify-center">
             {(showAll ? productData : productData.slice(0, 3)).map((product) => (
-              <div key={product.idMeal} className="lg:w-1/4 md:w-1/2 p-4 w-full shadow-lg shadow-red-600 border-red-600 border-1">
+              <div key={product.idMeal} className="lg:w-1/4 md:w-1/2 p-4 w-full shadow-lg shadow-gray-100  border-1">
                 <Link to={`/product/${product.idMeal}`} className="block relative h-48 rounded overflow-hidden">
                   <img
                     alt={product.strMeal}
@@ -79,6 +79,7 @@ const Card = () => {
           <CustomButton 
             text={showAll ? "View Less" : "View All"} 
             type="solid" 
+            
             onClick={() => setShowAll(!showAll)} 
           />
         </div>

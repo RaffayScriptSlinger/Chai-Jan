@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../utils/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import signUpimg from "../../images/signUpimg.png";
+import newLogo  from '../../images/newLogo.png';
+import { HomeOutlined } from "@ant-design/icons";
 
 function SignUp() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ function SignUp() {
 
 
   return (
-    <div className="h-[85vh] w-full flex justify-center items-center">
+    <div className="h-[85vh] w-full flex justify-center items-center ">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl">
         <div
           className="hidden bg-cover lg:block lg:w-1/2"
@@ -53,7 +54,7 @@ function SignUp() {
         />
         <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
           <div className="flex justify-center mx-auto">
-            <img className="w-auto h-7 sm:h-8 lg:h-28" src={signUpimg} alt="Logo" />
+            <img className="w-auto h-7 sm:h-8 lg:h-28" src={newLogo} alt="Logo" />
           </div>
           <p className="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">
             Register your account!
@@ -112,6 +113,12 @@ function SignUp() {
               className="text-sm text-black uppercase dark:text-gray-400 hover:underline"
             >
               or Sign in
+            </Link>
+            <Link
+              to="/"
+              className="text-sm text-black uppercase dark:text-gray-400 align-middle hover:underline"
+            >
+           Back To   <HomeOutlined />
             </Link>
             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4" />
           </div>
