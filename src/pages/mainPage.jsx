@@ -11,6 +11,7 @@ import Layout from '../components/layout.jsx';
 import LogOut from '../components/LogOut.jsx';
 import FAQs from '../components/FAQs.jsx';
 import Cart from '../components/cart.jsx';
+import UserProfile from '../components/userProfile.jsx';
 
 function MainPageContent() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
@@ -51,8 +52,10 @@ function MainPageContent() {
       />
       <Route path='/Cart' element={<Layout><Cart /></Layout> } />
       <Route path='/FAQs' element={ <Layout><FAQs /></Layout>} />
+      <Route path='/UserProfile' element={ <Layout><UserProfile /></Layout>} />
     </Routes>
   );
 }
+
 
 export default MainPageContent;

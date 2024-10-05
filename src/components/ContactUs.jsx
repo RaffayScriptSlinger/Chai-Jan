@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import Swal from "sweetalert2";
 import React from 'react';
-import {   notification } from 'antd';
+import { notification } from 'antd';
+import { useEffect } from "react";
+
 
 function ContactUs() {
   const { theme } = useContext(ThemeContext);
-
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-
   const [api, contextHolder] = notification.useNotification();
 
   const openNotification = () => {
@@ -25,7 +25,6 @@ function ContactUs() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const db = getFirestore();
     const contactsCollection = collection(db, "contacts");
 
@@ -40,17 +39,27 @@ function ContactUs() {
         });
 
         openNotification();
-
         setName("");
         setEmail("");
         setMessage("");
       }
-
     } catch (error) {
       console.error("Error adding document: ", error);
       Swal.fire(`Error adding document: ${error}`);
     }
   };
+
+  useEffect(() => {
+    const storedName = localStorage.getItem("userName") || "";
+    const storedEmail = localStorage.getItem("userEmail") || "";
+
+    if (storedName) {
+      setName(storedName);
+    }
+    if (storedEmail) {
+      setEmail(storedEmail);
+    }
+  }, []);
 
   return (
     <div className={`${theme === "light" ? "bg-white text-black" : "bg-black text-white"}`}>
@@ -117,6 +126,8 @@ function ContactUs() {
                 </button>
                 <br />
                 <Link to="/FAQs" className="text-red-600">FAQs</Link>
+                <br />
+                <Link to="/UserProfile" className="text-red-600">User Profile</Link>
                 <p className="text-red-600">Note: Your response is recorded</p>
               </div>
             </form>

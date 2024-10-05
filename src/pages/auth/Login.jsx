@@ -20,6 +20,9 @@ function Login() {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
+      localStorage.setItem("userName", user.displayName || ""); // Store display name
+      localStorage.setItem("userEmail", user.email || ""); // Store email
+      
 
       localStorage.setItem("authToken", user.accessToken); 
       localStorage.setItem("userId", user.uid); 
@@ -42,6 +45,8 @@ function Login() {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
+      localStorage.setItem("userName", user.displayName || ""); // Store display name
+      localStorage.setItem("userEmail", user.email || ""); // Store email
 
       localStorage.setItem("authToken", user.accessToken); 
       localStorage.setItem("userId", user.uid); 
@@ -55,6 +60,8 @@ function Login() {
       setLoading(false);
     }
   };
+  
+  
 
 
 
